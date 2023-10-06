@@ -1,0 +1,780 @@
+'''
+注意事项:
+①本脚本不包含任何侵犯的代码
+②本脚本仅用于模拟操作，清扫日常任务，不会篡改任何数据
+③本脚本适用于mumu模拟器，1600×900（DPI 240）环境下的操作,脚本测试屏幕为1980*1080
+若模拟器分辨率不符，请自行更改图标位置参数
+
+查找图标位置代码如下：
+import pyautogui
+# 当前鼠标位置
+print(pyautogui.position())
+
+修改图标位置参数：
+查找代码ctrl+F：pyautogui.click
+更改pyautogui.click（），（）中的两个数值
+
+④encoding=UTF-8
+⑤开源脚本,禁止商用，盗用
+⑥脚本日志
+#   创建日期： 2023/10/4
+#   作者:  rise
+#   最后修改时间：2023/10/5
+#   给作者提意见的邮箱：2951171089@qq.com
+#   作者非计算机专业，代码有极大的精简空间
+⑦本脚本需要使用者可以挂机通关副本，练度不达标则容易造成挑战失败.
+因此建议新手玩家自行选择刷取内容，高难关卡则选择手打
+⑧脚本刷取内容：
+启动游戏
+每日签到
+基建收获
+宿舍收获
+加工厂操作
+碎片搜索10次（请自行更改自己要刷取的角色）
+资源采集双倍两次
+漏洞排查难度5（可自行更改,若打难度1则修改 n5 为 n1 ）【默认不选函数，如果打不过可以自行添加代码】
+算法采集（剩下的体力都花在这里）
+奖励领取
+关闭游戏
+    #资源刷取非最优，这里选择摆烂刷法，若不能接受请自行修改刷取内容
+⑨调用库:pyautogui,time,opencv_python
+confidence（） （）值越小图片匹配越模糊，可更改
+不少地方为精简代码，选择了相对坐标，如果报错，可自行调整,或者和作者一样采用图片检索:pyautogui.locateOnScreen(图片绝对路径,匹配模糊度)
+'''
+
+import pyautogui
+from time import sleep
+
+# # 鼠标在最上方时，停止运行脚本
+# pyautogui.FAILSAFE =True
+#
+# # # 所有指令都要停顿1秒
+# # pyautogui.PAUSE = 1
+
+# # 鼠标左键,双击,桌面快捷方式启动
+# pyautogui.doubleClick(42,32)
+
+# # 鼠标移动到指定位置 ,duration=1 为移动时间
+# pyautogui.moveTo(42,32,duration=1)
+
+# 启动mumu模拟器，在循环期间，确保图标在桌面上显示
+while True:
+    while pyautogui.locateOnScreen('moniqi.png',confidence=.8) ==  None:
+         print('再次查询图标位置中1......')
+         sleep(2)
+    else:
+        btm=pyautogui.locateOnScreen('moniqi.png',confidence=.8)
+        pyautogui.mouseDown(btm,duration=1)
+        pyautogui.click()
+        pyautogui.mouseUp()
+        break
+print('启动MUMU模拟器')
+
+# 打开云图计划
+while True:
+    while pyautogui.locateOnScreen('yuntu.png') ==  None:
+        print('再次查询图标位置中2......')
+        sleep(2)
+    else:
+        btm=pyautogui.locateOnScreen('yuntu.png')
+        pyautogui.mouseDown(btm,duration=1)
+        pyautogui.click()
+        pyautogui.mouseUp()
+        break
+print('进入游戏启动界面')
+
+# 点击指定位置,进入游戏
+while True:
+    while pyautogui.locateOnScreen('kaishi2.png',confidence=.5) ==  None:
+        print('再次查询图标位置中3......')
+        sleep(2)
+    else:
+        btm=pyautogui.locateOnScreen('kaishi2.png',confidence=.5)
+        pyautogui.mouseDown(btm,duration=1)
+        pyautogui.doubleClick()
+        pyautogui.mouseUp()
+        break
+# pyautogui.mouseUp()
+print('进入游戏界面')
+
+# 签到模块
+while True:
+    while pyautogui.locateOnScreen('tanchuang.png',confidence=.5) ==  None:
+        print('再次查询图标位置中3......')
+        sleep(2)
+    else:
+        btm=pyautogui.locateOnScreen('tanchuang.png',confidence=.5)
+        pyautogui.mouseDown(btm,duration=1)
+        pyautogui.doubleClick()
+        pyautogui.mouseUp()
+        break
+
+# 关闭游戏内的弹窗
+while True:
+    for i in range(6):
+        while pyautogui.locateOnScreen('tanchuang.png') ==  None:
+            print('再次查询图标位置中4......')
+            break
+        else:
+            btm=pyautogui.locateOnScreen('tanchuang.png')
+            pyautogui.mouseDown(btm,duration=1)
+            pyautogui.click()
+            print('弹窗关闭完成')
+            break
+    else:
+        break
+
+#收基建模块,结束后执行退出基建
+def 基建(x):
+    if  x==1:
+        while True:
+            while pyautogui.locateOnScreen('jijian.png',confidence=.5) == None:
+                print('再次查询图标位置中......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('jijian.png',confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+        for i in range(3):
+            while pyautogui.locateOnScreen('shouquziyuan.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+                break
+            else:
+                btm = pyautogui.locateOnScreen('shouquziyuan.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+                while pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.6) == None:
+                    print('再次查询图标位置中20......')
+                    sleep(2)
+                else:
+                    btm = pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.6)
+                    pyautogui.mouseDown(btm, duration=1)
+                    pyautogui.click()
+                    break
+    else:
+        print('0为拒绝执行')
+
+基建(1)
+
+# # 加工厂模块，结束后执行退出加工厂
+def 加工厂(x):
+    if x == 1:
+        while True:
+            while pyautogui.locateOnScreen('jiagongchang.png', confidence=.8) == None:
+                print('再次查询图标位置中jiagongchang......')
+                sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('jiagongchang.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 领取奖励
+        for i in range(3):
+            while pyautogui.locateOnScreen('lingqu.png', confidence=.7) == None:
+                print('再次查询图标位置中lingqu......')
+                break
+            else:
+                btm = pyautogui.locateOnScreen('lingqu.png', confidence=.7)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        for i in range(2):
+            while True:
+                while pyautogui.locateOnScreen('jixu.png', confidence=.6) == None:
+                    print('再次查询图标位置中jixu......')
+                    break
+                else:
+                    btm = pyautogui.locateOnScreen('jixu.png', confidence=.6)
+                    pyautogui.mouseDown(btm, duration=1)
+                    pyautogui.click()
+                    break
+
+        while True:
+            while pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8) == None:
+                print('再次查询图标位置中20......')
+            else:
+                btm = pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+    else:
+        print('输入1执行，输入0不执行，若不执行则修改下面的数值')
+
+加工厂(1)
+
+# 宿舍模块，结束后执行退出宿舍
+def 宿舍(x):
+    if x == 1:
+        while True:
+            while pyautogui.locateOnScreen('sushe.png', confidence=.8) == None:
+                print('再次查询图标位置中7......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('sushe.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+        for i in range(3):
+            while pyautogui.locateOnScreen('shouquziyuan.png', confidence=.8) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+                break
+            else:
+                btm = pyautogui.locateOnScreen('shouquziyuan.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+        else:
+            pass
+
+        # 返回主界面
+        while True:
+            while pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8) == None:
+                print('再次查询图标位置中7......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+    else:
+        print('输入1执行，输入0不执行，若不执行则修改下面的数值')
+
+宿舍(1)
+
+# 碎片刷取模块，请自行匹配自己要养的角色!!!
+def 碎片(x):
+    if  x==1:
+        # 进入碎片搜索
+        while True:
+            while pyautogui.locateOnScreen('zhuxiantubiao.png',confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('zhuxiantubiao.png',confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 进入资源界面
+        for i   in range(2):
+            while True:
+                while pyautogui.locateOnScreen('ziyuan.png', confidence=.5) == None:
+                    print('再次查询图标位置中8......')
+                    sleep(2)
+                    break
+                else:
+                    btm = pyautogui.locateOnScreen('ziyuan.png', confidence=.5)
+                    pyautogui.mouseDown(btm, duration=1)
+                    pyautogui.click()
+                    break
+
+        # 进入碎片搜索
+        while True:
+            while pyautogui.locateOnScreen('suipian.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('suipian.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 执行安吉拉和欢谜的碎片刷取
+        while True:
+            while pyautogui.locateOnScreen('anjiela.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('anjiela.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+            while pyautogui.locateOnScreen('zidong.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(1)
+            else:
+                btm = pyautogui.locateOnScreen('zidong.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while   True:
+            while pyautogui.locateOnScreen('zuozhan.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('zuozhan.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+            while pyautogui.locateOnScreen('zdzd.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('zdzd.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+            while pyautogui.locateOnScreen('queren.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(4)
+            else:
+                btm = pyautogui.locateOnScreen('queren.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 幻谜碎片刷取
+        while True:
+            while pyautogui.locateOnScreen('huanmi.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('huanmi.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+            while pyautogui.locateOnScreen('zidong.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(1)
+            else:
+                btm = pyautogui.locateOnScreen('zidong.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while   True:
+            while pyautogui.locateOnScreen('zuozhan.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('zuozhan.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+            while pyautogui.locateOnScreen('zdzd.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('zdzd.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+            while pyautogui.locateOnScreen('queren.png', confidence=.5) == None:
+                print('再次查询图标位置中8......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('queren.png', confidence=.5)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        while True:
+            while pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8) == None:
+                print('再次查询图标位置中20......')
+                sleep(4)
+            else:
+                btm = pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+    else:
+        print('输入1执行，输入0不执行，若不执行则修改下面的数值')
+碎片(1)
+
+## 若上述报错则开启下面这个(注销后两个While True语句)，战斗胜利领取奖励
+# while True:
+#     while pyautogui.locateOnScreen('queren.png', confidence=.8) == None:
+#         print('战斗还未结束......')
+#         sleep(5)
+#     else:
+#         btm = pyautogui.locateOnScreen('queren.png', confidence=.8)
+#         pyautogui.mouseDown(btm, duration=1)
+#         pyautogui.click()
+#         sleep(0.5)
+#         pyautogui.click(338, 138)
+#         pyautogui.mouseUp()
+#         break
+
+#移动到资源刷取位置
+pyautogui.click(1701, 881)
+def 资源采集(x):
+    if x == 1:
+        while True:
+            while pyautogui.locateOnScreen('ziyuancaiji.png', confidence=.8) == None:
+                print('再次查询图标位置中10......')
+                sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('ziyuancaiji.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                sleep(2)
+                pyautogui.click(1226, 847)  # 自动战斗
+                sleep(2)
+                pyautogui.click(1328, 574)  # 调整战斗次数，默认为两次
+                sleep(1)
+                pyautogui.click(1143, 723)  # 准备战斗图标位置
+                sleep(1)
+                pyautogui.click(1510, 876)  # 选人界面进入战斗
+                break
+    else:
+        print('输入1执行，输入0不执行，若不执行则修改下面的数值')
+
+资源采集(1)
+
+# 战斗胜利后的操作
+while True:
+    while pyautogui.locateOnScreen('queren.png', confidence=.8) == None:
+        print('战斗还未结束......')
+        sleep(5)
+    else:
+        btm = pyautogui.locateOnScreen('queren.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        sleep(0.5)
+        pyautogui.click(338, 138)
+        pyautogui.mouseUp()
+        break
+
+#移动到算法采集位置,采用相对坐标
+pyautogui.click(1701, 881)
+pyautogui.mouseUp()
+def 资源采集(x):
+    if x == 1:
+        while True:
+            while pyautogui.locateOnScreen('suanfa.png', confidence=.8) == None:
+                print('再次查询图标位置中11......')
+                sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('suanfa.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                sleep(2)
+                pyautogui.click(1226, 847)  # 自动战斗
+                sleep(2)
+                pyautogui.click(1328, 574)
+                pyautogui.click(1328, 574)
+                pyautogui.click(1328, 574)
+                pyautogui.click(1328, 574)
+                pyautogui.click(1328, 574)
+                pyautogui.click(1328, 574)  # 调整战斗次数，默认为两次
+                sleep(1)
+                pyautogui.click(1143, 723)  # 准备战斗图标位置
+                sleep(1)
+                pyautogui.click(1510, 876)  # 选人界面进入战斗
+                break
+    else:
+        print('输入1执行，输入0不执行，若不执行则修改下面的数值')
+
+资源采集(1)
+
+# 战斗胜利后的操作
+while True:
+    while pyautogui.locateOnScreen('queren.png', confidence=.8) == None:
+        print('战斗还未结束......')
+        sleep(5)
+    else:
+        btm = pyautogui.locateOnScreen('queren.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        sleep(0.5)
+        pyautogui.click(338, 138)
+        pyautogui.mouseUp()
+        break
+
+# 漏洞排查模块
+def 漏洞排查(x):
+    if x==1:
+        # 进入漏洞排查界面
+        while True:
+            while pyautogui.locateOnScreen('loudong.png', confidence=.8) == None:
+                print('再次查询图标位置中12......')
+                sleep(2)
+            else:
+                btm = pyautogui.locateOnScreen('loudong.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+        # 选择漏洞排查难度5
+        while True:
+            while pyautogui.locateOnScreen('n5.png', confidence=.8) == None:
+                    print('再次查询图标位置中13......')
+                    sleep(2)
+            else:
+                    btm = pyautogui.locateOnScreen('n5.png', confidence=.8)
+                    pyautogui.mouseDown(btm, duration=1)
+                    pyautogui.click()
+                    sleep(1)
+                    pyautogui.click(368, 468)
+                    sleep(1)
+                    pyautogui.click(1258, 730)
+                    sleep(2)
+                    pyautogui.click(1428, 894)
+                    break
+
+        # 挑战胜利进入第二关
+        while True:
+            while pyautogui.locateOnScreen('xiayiguan.png', confidence=.6) == None:
+                    print('再次查询图标位置中14......')
+                    sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('xiayiguan.png', confidence=.6)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 选择下一关
+        while True:
+            while pyautogui.locateOnScreen('zhandou.png', confidence=.6) == None:
+                    print('再次查询图标位置中14......')
+                    sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('zhandou.png', confidence=.6)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 进入第三关
+        while True:
+            while pyautogui.locateOnScreen('xiayiguan.png', confidence=.8) == None:
+                print('再次查询图标位置中15......')
+                sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('xiayiguan.png', confidence=.8)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 选择下一关
+        while True:
+            while pyautogui.locateOnScreen('zhandou.png', confidence=.6) == None:
+                    print('再次查询图标位置中14......')
+                    sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('zhandou.png', confidence=.6)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+        # 第四关
+        while True:
+            while pyautogui.locateOnScreen('xiayiguan.png', confidence=.8) == None:
+                print('再次查询图标位置中16......')
+                sleep(2)
+            else:
+              btm = pyautogui.locateOnScreen('xiayiguan.png', confidence=.8)
+              pyautogui.mouseDown(btm, duration=1)
+              pyautogui.click()
+              break
+
+        # 选择下一关
+        while True:
+            while pyautogui.locateOnScreen('zhandou.png', confidence=.6) == None:
+                    print('再次查询图标位置中14......')
+                    sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('zhandou.png', confidence=.6)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+
+        # 第五关
+        while True:
+                while pyautogui.locateOnScreen('xiayiguan.png', confidence=.8) == None:
+                      print('再次查询图标位置中17......')
+                      sleep(2)
+                else:
+                      btm = pyautogui.locateOnScreen('xiayiguan.png', confidence=.8)
+                      pyautogui.mouseDown(btm, duration=1)
+                      pyautogui.click()
+                      break
+
+        # 选择下一关
+        while True:
+            while pyautogui.locateOnScreen('zhandou.png', confidence=.6) == None:
+                    print('再次查询图标位置中14......')
+                    sleep(3)
+            else:
+                btm = pyautogui.locateOnScreen('zhandou.png', confidence=.6)
+                pyautogui.mouseDown(btm, duration=1)
+                pyautogui.click()
+                break
+        #第六关
+        while True:
+            while pyautogui.locateOnScreen('xiayiguan.png', confidence=.8) == None:
+                print('再次查询图标位置中18......')
+                sleep(2)
+            else:
+              btm = pyautogui.locateOnScreen('xiayiguan.png', confidence=.8)
+              pyautogui.mouseDown(btm, duration=1)
+              pyautogui.click()
+              break
+
+        # 战斗结束返回
+        while True:
+            while pyautogui.locateOnScreen('fanhui.png', confidence=.8) == None:
+                print('再次查询图标位置中19......')
+                sleep(2)
+            else:
+              btm = pyautogui.locateOnScreen('fanhui.png', confidence=.8)
+              pyautogui.mouseDown(btm, duration=1)
+              pyautogui.click()
+              break
+
+        # 返回到漏洞排查界面，下列代码进行再次返回
+        while True:
+            while pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8) == None:
+                print('再次查询图标位置中20......')
+                sleep(2)
+            else:
+              btm = pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8)
+              pyautogui.mouseDown(btm, duration=1)
+              pyautogui.click()
+              break
+    else:
+        print('输入1执行，输入0不执行，若不执行则修改下面的数值')
+
+漏洞排查(1)
+
+# 返回主界面
+while True:
+    while pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8) == None:
+        print('再次查询图标位置中20......')
+        sleep(2)
+    else:
+        btm = pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        break
+
+# 活跃度奖励领取，执行四次，找不到后跳出循环
+while True:
+    while pyautogui.locateOnScreen('wancheng.png', confidence=.8) == None:
+        print('再次查询图标位置中21......')
+        sleep(2)
+    else:
+        btm = pyautogui.locateOnScreen('wancheng.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        sleep(1)
+        pyautogui.click(691, 168)
+        break
+
+while True:
+    while pyautogui.locateOnScreen('wancheng.png', confidence=.8) == None:
+        print('再次查询图标位置中21......')
+        sleep(2)
+    else:
+        btm = pyautogui.locateOnScreen('wancheng.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        sleep(1)
+        pyautogui.click(691, 168)
+        break
+
+while True:
+    while pyautogui.locateOnScreen('wancheng.png', confidence=.8) == None:
+        print('再次查询图标位置中21......')
+        sleep(2)
+    else:
+        btm = pyautogui.locateOnScreen('wancheng.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        sleep(1)
+        pyautogui.click(691, 168)
+        break
+
+while True:
+    while pyautogui.locateOnScreen('wancheng.png', confidence=.8) == None:
+        print('再次查询图标位置中21......')
+        break
+    else:
+        btm = pyautogui.locateOnScreen('wancheng.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        sleep(1)
+        pyautogui.click(691, 168)
+        break
+
+# 标准行动奖励领取
+while True:
+    while pyautogui.locateOnScreen('biaozhunxingdong.png', confidence=.8) == None:
+        print('再次查询图标位置中21......')
+    else:
+        btm = pyautogui.locateOnScreen('biaozhunxingdong.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        break
+
+# 标准行动奖励领取
+while True:
+    while pyautogui.locateOnScreen('biaozhunxingdong.png', confidence=.8) == None:
+        print('再次查询图标位置中21......')
+    else:
+        btm = pyautogui.locateOnScreen('biaozhunxingdong.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        break
+
+# 全部领取
+    import pyautogui
+    while True:
+        while pyautogui.locateOnScreen('yichuanheise.png', confidence=.8) == None:
+            break
+        else:
+            while True:
+                while pyautogui.locateOnScreen('quanbulingqu.png', confidence=.8) == None:
+                    print('再次查询图标位置中22......')
+                else:
+                    btm = pyautogui.locateOnScreen('quanbulingqu.png', confidence=.8)
+                    pyautogui.mouseDown(btm, duration=1)
+                    pyautogui.click()
+                    break
+# 确定领取
+while True:
+    while pyautogui.locateOnScreen('queding1.png', confidence=.6) == None:
+        print('再次查询图标位置中23......')
+        sleep(3)
+        break
+    else:
+        btm = pyautogui.locateOnScreen('queding1.png', confidence=.6)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        break
+
+# 返回游戏界面
+while True:
+    while pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8) == None:
+        print('再次查询图标位置中24......')
+        sleep(2)
+    else:
+        btm = pyautogui.locateOnScreen('jiemianfanhui.png', confidence=.8)
+        pyautogui.mouseDown(btm, duration=1)
+        pyautogui.click()
+        break
+
+# 关闭游戏
+sleep(3)
+pyautogui.click(1740,62,duration=1)
+
+# 鼠标释放
+pyautogui.mouseUp()
